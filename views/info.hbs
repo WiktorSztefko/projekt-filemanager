@@ -1,0 +1,23 @@
+<nav>
+    <a href="/">upload</a>
+    <a href="/filemanager">filemanager</a>
+    <a href="/info">info</a>
+</nav>
+<main>
+    <aside>
+        <h1>info</h1>
+    </aside>
+    <div id="upload">
+        {{#if ShowThisFile }}
+        <!--{{#each ShowThisFile}}
+            <h1><span>{{@key}}: </span>{{this}}</h1>
+        {{/each}} wypisze wszystie klucze i wartości obiektu-->
+        <h1>id: <span>{{ShowThisFile.id}}</span></h1>
+        <h1>name: <span>{{ShowThisFile.name}}</span></h1>
+        <h1>path: <span>{{ShowThisFile.path}}</span></h1>
+        <h1>size: <span>{{ShowThisFile.size}}</span></h1>
+        <h1>type: <span>{{ShowThisFile.type}}</span></h1>
+        <h1>savedate: <span>{{ShowThisFile.saveDate}}</span></h1>
+        {{/if}}
+    </div>
+</main>

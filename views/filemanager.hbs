@@ -1,0 +1,32 @@
+<nav>
+    <a href="/">upload</a>
+    <a href="/filemanager">filemanager</a>
+    <a href="/info">info</a>
+</nav>
+<main>
+    <aside>
+        <h1>filemanager</h1>
+        <h6><a href="removeAll">usuń wszystkie dane o plikach z tablicy</a></h6>
+    </aside>
+    <div id="upload">
+
+
+        <table>
+            <tr>
+                <td>id</td>
+                <td>obraz</td>
+                <td>name</td>
+                <td>size</td>
+                <td>type</td>
+                <td>---</td>
+                <td>---</td>
+                <td>---</td>
+            </tr>
+            {{#each tabImages}}
+            {{> partial}}
+            {{/each}}
+        </table>
+
+
+    </div>
+</main>

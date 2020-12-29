@@ -1,0 +1,16 @@
+<nav>
+    <a href="/">upload</a>
+    <a href="/filemanager">filemanager</a>
+    <a href="/info">info</a>
+</nav>
+<main>
+    <aside>
+        <h1>multiupload</h1>
+    </aside>
+    <div id="upload">
+        <form action="/filemanager" method="POST" enctype="multipart/form-data">
+            <input type="file" multiple required accept="*/*" name="imageFromUpload">
+            <input type="submit" value="upload">
+        </form>
+    </div>
+</main>
