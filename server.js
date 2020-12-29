@@ -151,7 +151,7 @@ function createDate(time) { //funkcja do tworzenia stringa czasu
     let minuty = time.getMinutes()
     minuty = zero(minuty)
 
-    let godziny = time.getHours()
+    let godziny = time.getHours()+1
     godziny = zero(godziny)
 
     let days = time.getDate()
