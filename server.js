@@ -69,21 +69,58 @@ app.post('/filemanager', function (req, res) {
         if (Array.isArray(files.imageFromUpload)) {
             //console.log("to tablica")
             for (i = 0; i < files.imageFromUpload.length; i++) {
+                let image = files.imageFromUpload[i]
+                if (image && image.name) {
 
-                let name = files.imageFromUpload[i].name
-                let location = files.imageFromUpload[i].path
-                let size = files.imageFromUpload[i].size
-                let type = files.imageFromUpload[i].type
+                    let name = files.imageFromUpload[i].name
+                    let location = files.imageFromUpload[i].path
+                    let size = files.imageFromUpload[i].size
+                    let type = files.imageFromUpload[i].type
+                    let saveDate = new Date()
+                    saveDate = createDate(saveDate)
+                    let extension = name.split(".")[1]
+                    extension = extension.toLowerCase() //zamiana na małe literki
+                    let nameOnUpload = path.basename(location) //wyodrębnij nazwę pliku ze ścieżki pliku
+
+                    id++
+                    //console.log(extension)
+                    if (extension != "docx" && extension != "xlsx" && extension != "pptx" && extension != "mp3" && extension != "jpg" && extension != "png" && extension != "html" && extension != "css" && extension != "js" && extension != "txt" && extension != "pdf") {
+                        extension = "unknown" //extension potrzebne do odpowiedniej ikonki
+                    }
+
+                    let object = {
+                        id: id,
+                        name: name,
+                        path: location,
+                        size: size,
+                        type: type,
+                        saveDate: saveDate,
+                        extension: extension,
+                        nameOnUpload: nameOnUpload
+                    }
+
+                    tabImages.push(object)
+                }
+            }
+        }
+        else {
+            //console.log("to nie tablica")
+            let image = files.imageFromUpload
+            if (image && image.name) {
+                let name = files.imageFromUpload.name
+                let location = files.imageFromUpload.path
+                let size = files.imageFromUpload.size
+                let type = files.imageFromUpload.type
                 let saveDate = new Date()
                 saveDate = createDate(saveDate)
                 let extension = name.split(".")[1]
-                extension = extension.toLowerCase() //zamiana na małe literki
+                extension = extension.toLowerCase()
                 let nameOnUpload = path.basename(location) //wyodrębnij nazwę pliku ze ścieżki pliku
-             
-                id++
                 //console.log(extension)
+                id++
+
                 if (extension != "docx" && extension != "xlsx" && extension != "pptx" && extension != "mp3" && extension != "jpg" && extension != "png" && extension != "html" && extension != "css" && extension != "js" && extension != "txt" && extension != "pdf") {
-                    extension = "unknown" //extension potrzebne do odpowiedniej ikonki
+                    extension = "unknown"
                 }
 
                 let object = {
@@ -99,37 +136,6 @@ app.post('/filemanager', function (req, res) {
 
                 tabImages.push(object)
             }
-        }
-        else {
-            //console.log("to nie tablica")
-            let name = files.imageFromUpload.name
-            let location = files.imageFromUpload.path
-            let size = files.imageFromUpload.size
-            let type = files.imageFromUpload.type
-            let saveDate = new Date()
-            saveDate = createDate(saveDate)
-            let extension = name.split(".")[1]
-            extension = extension.toLowerCase()
-            let nameOnUpload = path.basename(location) //wyodrębnij nazwę pliku ze ścieżki pliku
-            //console.log(extension)
-            id++
-            
-            if (extension != "docx" && extension != "xlsx" && extension != "pptx" && extension != "mp3" && extension != "jpg" && extension != "png" && extension != "html" && extension != "css" && extension != "js" && extension != "txt" && extension != "pdf") {
-                extension = "unknown"
-            }
-
-            let object = {
-                id: id,
-                name: name,
-                path: location,
-                size: size,
-                type: type,
-                saveDate: saveDate,
-                extension: extension,
-                nameOnUpload: nameOnUpload
-            }
-
-            tabImages.push(object)
         }
 
         //console.log(files.imageFromUpload)
@@ -176,15 +182,15 @@ app.get("/removeAll", function (req, res) {
 })
 
 app.get("/delete/:id", function (req, res) { //parametr
-    
-    let identyfikator= req.params.id //pobranie parametru z adresu
+
+    let identyfikator = req.params.id //pobranie parametru z adresu
     for (i = 0; i < tabImages.length; i++) {
         if (identyfikator == tabImages[i].id) {
             tabImages.splice(i, 1) //usunięcie wybranego indeksu
         }
     }
     res.redirect("/filemanager") //przekierowanie
-    
+
 
 })
 
